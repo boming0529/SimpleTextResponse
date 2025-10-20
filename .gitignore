@@ -1,0 +1,4 @@
+psycopg2*/
+lambda_package/
+env/
+.DS_Store
