@@ -8,7 +8,7 @@ def json_converter(o):
         return o.isoformat()
     raise TypeError(f"Object of type {o.__class__.__name__} is not JSON serializable")
 
-def query_db(config_id):
+def query_db(res_id):
     connection = psycopg2.connect(
         host=os.environ.get('DB_HOST'),
         database=os.environ.get('DB_NAME'),
@@ -19,9 +19,10 @@ def query_db(config_id):
     
     try:
         with connection.cursor() as cursor:
-            table_name = os.environ.get('DB_TABLE_NAME')
-            sql_query = f"SELECT * FROM {table_name} WHERE config_id = %s"
-            cursor.execute(sql_query, (config_id,))
+            table_name = os.environ.get('TABLE_NAME')
+            primary_key = os.environ.get('PRIMARY_KEY')
+            sql_query = f"SELECT * FROM {table_name} WHERE {primary_key} = %s"
+            cursor.execute(sql_query, (res_id,))
             
             column_names = [desc[0] for desc in cursor.description]
             results = [dict(zip(column_names, row)) for row in cursor.fetchall()]

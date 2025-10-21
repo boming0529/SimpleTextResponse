@@ -2,3 +2,4 @@ psycopg2*/
 lambda_package/
 env/
 .DS_Store
+pg_query_lambda.zip
