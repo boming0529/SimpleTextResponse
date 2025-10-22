@@ -22,8 +22,8 @@ jobs:
 
           echo "AWS_REGION=${{ vars.AWS_REGION }}" >> $GITHUB_ENV
           echo "LAMBDA_FUNCTION_NAME=${{ secrets.LAMBDA_FUNCTION_NAME }}" >> $GITHUB_ENV
-          echo "DOCKER_IMAGE={{ vars.DOCKER_IMAGE }}" >> $GITHUB_ENV
-          echo "ZIP_FILE_NAME={{ vars.ZIP_FILE_NAME }}" >> $GITHUB_ENV
+          echo "DOCKER_IMAGE=${{ vars.DOCKER_IMAGE }}" >> $GITHUB_ENV
+          echo "ZIP_FILE_NAME=${{ vars.ZIP_FILE_NAME }}" >> $GITHUB_ENV
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -49,7 +49,7 @@ jobs:
           echo "Zipping package..."
           zip -r9 $ZIP_FILE_NAME main.py database.py psycopg2*
 
-      - name: Update Lambda to use new image
+      - name: Deploy ZIP to Lambda
         run: |
           echo "Deploying new image to Lambda: $LAMBDA_FUNCTION_NAME"
           aws lambda update-function-code \
