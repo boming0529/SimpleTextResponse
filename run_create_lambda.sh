@@ -24,7 +24,7 @@ $DOCKER_IMAGE \
 -c "pip install -r /var/task/requirements.txt -t /var/task"
 
 echo "3. zip..."
-zip -r9 $ZIP_FILE_NAME . -x "*.zip" "*.sh" ".venv/*" ".git/*" "README.md"
+zip -r9 $ZIP_FILE_NAME . -x "*.zip" "*.sh" ".venv/*" ".git/*" "*.md" ".github/*" "env/*" ".gitignore" "*.txt"
 
 echo "4. create new Lambda function..."
 aws lambda create-function \
