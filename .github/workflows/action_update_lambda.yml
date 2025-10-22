@@ -42,6 +42,7 @@ jobs:
           echo "Using Docker (emulated arm64) to install Python dependencies..."
 
           docker run --rm -v "$(pwd):/var/task" \
+          --user "$(id -u):$(id -g)" \
           --entrypoint "/bin/sh" \
           $DOCKER_IMAGE \
           -c "pip install -r /var/task/requirements.txt -t /var/task"
